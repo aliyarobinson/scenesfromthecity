@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  </head>
+  <body onload="initialize()">
+    <div class="navigation left floatL">
+      <ul>
+        <li class="mToggle"><a href="index.html">Menu</a></li>
+        <li class="mToggleItem"><a href="index.html">Home</a></li>
+        <li class="mToggleItem"><a href="view.html" class="soon" data-name="View">View</a></li>
+        <li class="mToggleItem"><a href="visit.html" class="active-link">Visit</a></li>
+        <li class="mToggleItem"><a href="visualize.html" class="soon" data-name="Visualize">Visualize</a></li>
+      </ul>
+    </div><!-- End navigation -->
+    <div class="mainContainer innerPage visit fullMap"> 
+      <div class="infoBox">
+        <h1 class="siteTitle">
+          Scenes from the City
+        </h1>
+        <h3 class="siteSubtitle">
+          Filmmaking in New York: 1966-2006
+        </h3>
+      </div><!-- End infoBox -->
+      <div class="content">
+          <div id="map_canvas"></div>  
+          <div class='filmNames'></div> 
+          <div class='overlayContent imdbContent'>
+            <div class='container'>
+              <span class="visClose">X</span>
+              <h1 class="title">Movie Title</h1>
+              <div class="ltSide fl">                    
+                    <img src="http://placehold.it/300x424" class="imdbImg" />
+              </div>
+              <div class="rtSide fl">
+                    <p class="year"><span class="label">Year: </span><span class="value">1966</span></p>
+                    <p class="dir"><span class="label">Director: </span><span class="value">Sidney Lumet</span></p>
+                    <p class="rating"><span class="label">Rating: </span><span class="value">4.5</span></p>
+                    <p class="votes"><span class="label">Votes: </span><span class="value">32,556</span></p>
+                    <p class="plot"><span class="label">Plot: </span><span class="value">Desc....</span></p>
+              </div>
+              <div class="bottom clearfix">
+                  <p>Powered by</p>
+                  <a href="http://www.omdbapi.com/" target="_blank"><img src="images/omdb_sm.png" /></a>
+              </div>
+           </div><!-- End container -->
+          </div><!-- End overlayContent -->    
+      </div><!-- End content -->
+    </div><!-- End mainContainer -->
+    <div class="footer">
+    </div><!-- End footer -->
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCPn5VbT4leByGtMSolqEZNKHlvYrqxs84&sensor=false"></script>
+    <script src="js/infobox.js" type="text/javascript"></script>
+    <script src="http://d3js.org/d3.v2.js"></script>
+    <script type="text/javascript" src="js/main.js" async></script>
+  </body>
+</html>

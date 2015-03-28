@@ -1,0 +1,74 @@
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0; color:#fff; position: static; font: 14px Georgia, serif;}
+.floatL{ float: left;}
+.floatR{ float: right;}
+
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+/* Your Styles */
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width : 321px) {
+/* Your Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width : 320px) {
+/* Your Styles */
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+/* Your Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+/* Your Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+/* Your Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen
+and (min-width : 1224px) {
+/* Your Styles */
+	body { background: url(../images/homeImg1.png) #333538 top center no-repeat fixed; background-size: cover;}
+	.mainContainer{
+		margin:0 auto;
+	}
+	.mainContainer .infoBox{
+		background: rgba(51, 53, 56, 0.8); width: 650px; max-width: 800px; min-width: 500px; height: auto;
+		-webkit-border-radius: 10px; border-radius: 10px; text-align: center;margin:100px 0 0 60px;
+	}
+
+}
+
+/* Large screens ----------- */
+@media only screen
+and (min-width : 1824px) {
+/* Your Styles */
+}
+
+/* iPhone 4 ----------- */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+/* Your Styles */

@@ -1,0 +1,22 @@
+.slide ul{
+	display: block !important;
+	visibility: hidden;	
+	opacity: 0;
+
+	-webkit-transform: translate3d(0, 50px, 0);
+
+	-webkit-transition: visibility 0s linear .2s, -webkit-transform .2s linear, opacity .2s linear;
+	
+	
+}	
+
+.slide li:hover > ul {
+	visibility: visible;
+
+	-webkit-transition-delay: 0s;
+
+	-webkit-transform: translate3d(0, 0, 0);
+
+	
+	opacity: 1;
+}

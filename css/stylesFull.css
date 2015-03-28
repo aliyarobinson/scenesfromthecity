@@ -1,0 +1,112 @@
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0; background: #000000; color:#333; position: static;}
+h1.boroughTitle{ font: bolder 34px Arial,sans-serif; line-height: 0.2em; color: #fff;}
+#map_canvas, #map_canvasOverlay, #boroughVisual { border-left: 5px #000 solid; height: 100%; position: absolute; z-index: 1; bottom:0; right:0; width: 400px;}
+
+#map_canvasOverlay { z-index: 2;background: rgba(0,0,0,0); pointer-events: none;}
+#map_canvasOverlay button{ pointer-events: auto;}
+#boroughVisual  { z-index: 3;background: rgba(0,0,0,0.8); display: none;}
+.visClose { border: 1px #333 solid; color: #fff; padding: 3px; position: absolute; right: 20px; top: 10px; cursor: pointer;}
+#nycVector{ width: 100%; height: auto;}
+#chartHolder { position: absolute; z-index: 2; right:0; bottom: -20px; /*display: none;*/ opacity: 0.85; background-color: rgba(255,228,181,0.9);}
+button { position: absolute; top:15px; left: -150px; z-index: 3; background: transparent; border: 1px #fff solid; padding: 2px; color: #ccc; cursor: pointer;}
+button.visualize{ left: 280px;}
+button.showOverlays { left: -150px;}
+button.clearOverlays { right: 300px;}
+button.viewSpikeLee { right: 450px;}
+.movieInfo{width: 100%; position: absolute; left: 0; top:0; height: 100%;}
+.movieInfo ul.vertImg li { position: relative;}
+.movieInfo ul.vertImg li .flashAnim{ position: absolute;}
+.filmNames { background: rgba(51, 51, 51, 0.95); padding: 5px 20px; width: 360px; height: 300px; border-top:5px #000 solid; position: absolute; bottom: 0px; right: 0; z-index: 4; color: #fff; font: bold 16px Arial, sans-serif; overflow: hidden;}
+.filmNames span {}
+.filmNames span a{ color:#fff; margin: 3px 5px; opacity: 0.5; text-decoration: none;}
+.mainImg img{ width: 80%; position: relative; z-index: 2; opacity:1; position: relative; z-index: 0;}
+.mainImg .mainDesc{ position: absolute; bottom: 30px; left: 20px; color: #fff; text-shadow: 1px 1px #000000; font:14px Arial; opacity: 0.8; border-top:5px #000 solid; border-bottom:5px #000 solid;}
+.soundControls{ opacity:0; position: absolute; top:13px; left:350px; z-index: 5;}
+.thumbFlash{
+	width: 200px;
+	height: 200px;
+	background: -moz-radial-gradient(center, ellipse contain,  rgba(234,237,175,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(234,237,175,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse contain,  rgba(234,237,175,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse contain,  rgba(234,237,175,1) 0%,rgba(255,255,255,0) 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse contain,  rgba(234,237,175,1) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  rgba(234,237,175,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaedaf', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+.mainFlash{
+	width: 80%;
+	height: 100%;
+	position: absolute;
+	top:0;
+	z-index: 1;
+	background: -moz-radial-gradient(center, ellipse contain,  rgba(234,237,175,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(234,237,175,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse contain,  rgba(234,237,175,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse contain,  rgba(234,237,175,1) 0%,rgba(255,255,255,0) 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse contain,  rgba(234,237,175,1) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  rgba(234,237,175,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaedaf', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+/* Your Styles */
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width : 321px) {
+/* Your Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width : 320px) {
+/* Your Styles */
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+/* Your Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+/* Your Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+/* Your Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen
+and (min-width : 1224px) {
+/* Your Styles */
+}
+
+/* Large screens ----------- */
+@media only screen
+and (min-width : 1824px) {
+/* Your Styles */
+}
+
+/* iPhone 4 ----------- */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+/* Your Styles */

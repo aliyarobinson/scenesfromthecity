@@ -1,0 +1,170 @@
+
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0; color:#fff; position: static; font: 14px Georgia, serif; background: url(../images/homeImg1.png) rgb(27, 30, 36) top center no-repeat fixed; background-size: cover;}
+html, body, p, h1, h2, h3, h4, div { padding: 0; margin: 0;}
+.bold{ font-weight: bold;}
+
+/* Custom Font Voltaire----------- */
+@font-face {
+    font-family: 'voltaireregular';
+    src: url('../fonts/voltaire/voltaire-regular-webfont.eot');
+    src: url('../fonts/voltaire/voltaire-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/voltaire/voltaire-regular-webfont.woff') format('woff'),
+         url('../fonts/voltaire/voltaire-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+/* Custom Font Voltaire End----------- */
+
+@media screen{
+.floatL{ float: left;}
+.floatR{ float: right;}
+ul{	list-style: none;}
+.navigation ul { margin:30px 0 0 0px;}
+.navigation ul li{ padding: 0 0 5px; height: auto; overflow: hidden;}
+.navigation ul li a{ text-transform: uppercase; letter-spacing: 4px; font-weight: 400; font-style: normal; font: 12px/14px Tahoma, Arial, sans-serif; color: #fff; text-decoration: none;}
+.navigation ul li.mToggle{display: none; margin-left: 0px;}
+.navigation ul li a.active-link{color:#e34545;}
+.navigation ul li a:hover{ color: #ad5d58;}
+.decades{position:absolute; top:20px; left:50%; margin-left:-200px;}
+.mainContainer{ margin:0 auto; width: 100%;}
+.mainContainer .infoBox{ background: rgba(51, 53, 56, 0.6); width: 520px; max-width: 520px; min-width: 500px; height: auto;	-webkit-border-radius: 10px; border-radius: 10px; 
+		text-align: center;margin:100px auto 0; padding: 50px 50px 20px;}
+.mainContainer.innerPage .content{ width: 980px; max-width: 1000px; margin:0 auto; position:relative;}
+.siteTitle{font:115px 'voltaireregular',arial,sans-serif; text-transform: uppercase;}
+.siteSubtitle{font: italic 20px Georgia,serif; color:#e34545;}
+.divider.horz.wht{ width: 150px; height: 4px; background: #fff; margin: 20px auto;}
+.mainContainer p{margin: 0 0 10px; font-size: 16px; line-height: 22px;}
+
+.mainContainer.innerPage .infoBox{ width: 980px; max-width: 1000px; -webkit-border-radius: 10px 10px 0px 0px; border-radius: 10px 10px 0px 0px;}
+.mainContainer.innerPage .siteTitle{font:115px 'voltaireregular',arial,sans-serif; text-transform: uppercase;}
+.mainContainer.innerPage .siteSubtitle{font: italic 20px Georgia,serif; color:#e34545;}
+.mainContainer.innerPage .content{/*background:rgba(0,0,0,0.5);*/ width:900px; height:500px; background:#FFF;}
+}
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px){
+	.navigation {position: absolute; width: 100%; background: rgba(27, 30, 36, 0.5);}
+	.navigation ul {margin: 0 auto; width: 350px; height: auto; overflow: hidden;}
+	.navigation ul li {margin-left: 20px; float: left;}
+	.navigation ul li.mToggle{display: block;}
+	.navigation ul li.mToggleItem{display: none;}
+	.mainContainer .infoBox{ width: 300px; max-width: 450px; min-width: 250px;}
+	
+	/* reset ------------------------------- */
+	.menu, .menu li.mToggleItem {
+	margin: 0 auto;
+	padding: 0px;
+	list-style: none;
+	width: 500px;
+	background: rgba(0,0,0,0.5);
+	}
+	
+	/* menu items ------------------------- */
+	.menu > li {float:left; text-align:center;}
+	.menu > li.floatr {float:right;}
+	.menu li {position: relative; margin-left: -2px;}
+	.menu li > a {
+	display: block;
+	width: 500px;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+	padding: 10px 2px;
+	}
+	
+	/* sub menus --------------------------- */
+	.menu li.mToggleItem {
+		display: none;
+		position: absolute;
+		width: 125px;
+	}
+	.menu li:hover > .menu li.mToggleItem {display: block;}
+
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) {
+/* Your Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+	.navigation {position: absolute; width: 100%; background: rgba(27, 30, 36, 0.5);}
+	.navigation ul {margin: 0 auto; width: 70px; height: auto; overflow: hidden;}
+	.navigation ul li {margin-left: 20px; float: left;}
+	.navigation ul li.mToggle{display: block;}
+	.navigation ul li.mToggleItem{display: none;}
+	.mainContainer .infoBox{ width: 170px; max-width: 300px; min-width: 100px; padding-top:20px; margin-top: 60px;}
+	.siteTitle{font-size: 70px;}
+	
+	/* reset ------------------------------- */
+	.menu, .menu li.mToggleItem {
+	margin: 0 auto;
+	padding: 0px;
+	list-style: none;
+	width: 500px;
+	background: rgba(0,0,0,0.5);
+	}
+	
+	/* menu items ------------------------- */
+	.menu > li {float:left; text-align:center;}
+	.menu > li.floatr {float:right;}
+	.menu li {position: relative; margin-left: -2px;}
+	.menu li > a {
+	display: block;
+	width: 500px;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+	padding: 10px 2px;
+	}
+	
+	/* sub menus --------------------------- */
+	.menu li.mToggleItem {
+		display: none;
+		position: absolute;
+		width: 125px;
+	}
+	.menu li:hover > .menu li.mToggleItem {display: block;}
+}
+
+@media only screen and (min-width : 321px) and (max-width: 767px) {
+/* Your Styles */
+	.navigation {position: absolute; width: 100%; background: rgba(27, 30, 36, 0.5);}
+	.navigation ul {margin: 0 auto; width: 520px; height: auto; overflow: hidden;}
+	.navigation ul li {margin-left: 20px; text-align: center;}
+	.navigation ul li.mToggle{display: block;}
+	.navigation ul li.mToggleItem{display: none;}
+	.mainContainer .infoBox{ width: 300px; max-width: 750px; min-width: 300px;}
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media (min-width : 768px) and (max-width : 1024px) {
+	.navigation {position: absolute; width:100%; padding: 20px 0;}
+	.navigation ul {margin: 0 auto; width: 400px; height: auto; overflow: hidden;}
+	.navigation ul li {margin-left: 20px; float: left;}
+	.navigation ul li:first-child {margin-left: 0px;}
+	.mainContainer .infoBox{ width: 750px; max-width: 1000px; min-width: 750px;}
+}
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+/* Your Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+/* Your Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) {
+	.navigation { position: fixed;}
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width : 1824px) {
+/* Your Styles */
+}
+
+/* iPhone 4 ----------- */
+@media only screen and (-webkit-min-device-pixel-ratio : 1.5), only screen and (min-device-pixel-ratio : 1.5) {
+/* Your Styles */

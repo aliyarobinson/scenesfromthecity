@@ -1,0 +1,258 @@
+
+html { height: 100% margin: 0; padding: 0;}
+body { height: 100%; margin: 0; padding: 0; color:#fff; position: static; font: 14px Georgia, serif; /*background: url(../images/homeImg1.png) rgb(27, 30, 36) top center no-repeat fixed; background-size: cover;*/}
+html, body, p, h1, h2, h3, h4, div { padding: 0; margin: 0;}
+.bold{ font-weight: bold;}
+
+/* Custom Font Voltaire----------- */
+@font-face {
+    font-family: 'voltaireregular';
+    src: url('../fonts/voltaire/voltaire-regular-webfont.eot');
+    src: url('../fonts/voltaire/voltaire-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/voltaire/voltaire-regular-webfont.woff') format('woff'),
+         url('../fonts/voltaire/voltaire-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+/* Custom Font Voltaire End----------- */
+
+.floatL{ float: left;}
+.floatR{ float: right;}
+.clearfix{ clear:both;}
+#map_canvas, #map_canvasOverlay { height: 100%; position: absolute; z-index: 1; bottom:0; right:0; width: 20%;}
+.fl{ float:left;}
+.fr{ float:right;}
+#map_canvasOverlay { z-index: 2;background: rgba(0,0,0,0.5); pointer-events: none;}
+#map_canvasOverlay button{ pointer-events: auto;}
+.visClose { border: 1px #333 solid; color: #fff; padding: 3px; position: absolute; right: 20px; top: 10px; cursor: pointer;}
+button { position: absolute; top:15px; left: -150px; z-index: 3; background: transparent; border: 1px #666 solid; padding: 2px; color: rgb(145, 137, 137); cursor: pointer;}
+button.mapInfoBtn{position:absolute; margin-top:10px;}
+button.getDir{left:0;}
+button.imdbInfo{left:110px;}
+button.decadeBtn{ position:relative; }
+.decades{position:absolute; top:20px; left:540px; margin-left:-200px;}
+svg.barChart{margin:0 0 0 100px;} 
+.overlayContent{font: 14px/14px Tahoma, Arial, sans-serif; display:none; position:absolute; z-index:50; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9);}
+.overlayContent .container{width:800px; margin:20px auto 0; padding:10px; position: relative;
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+/* IE10 Consumer Preview */ 
+background-image: -ms-linear-gradient(bottom, rgba(255,255,255, 0) 0%, rgba(58,58,58, 0.5) 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(bottom, rgba(255,255,255, 0) 0%, rgba(58,58,58, 0.5) 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(bottom, rgba(255,255,255, 0) 0%, rgba(58,58,58, 0.5) 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgba(255,255,255, 0.5)), color-stop(1, rgba(58,58,58, 0.5)));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(bottom, rgba(255,255,255, 0) 0%, rgba(58,58,58, 0.5) 100%);
+
+/* W3C Markup, IE10 Release Preview */ 
+background-image: linear-gradient(to top, rgba(255,255,255, 0) 0%, rgba(58,58,58, 0.5) 100%);}
+.overlayContent .ltSide{margin:0 20px 0; width: 300px;}
+.overlayContent .title{font: 24px 'voltaireregular',arial,sans-serif; width: 500px; text-align: center; margin: 20px auto;
+						background: rgba(0,0,0,0.4); border: 1px rgb(78, 73, 73) solid; padding: 5px;}
+.overlayContent .rtSide{width:400px;}
+.overlayContent .bottom{ margin:20px; text-align:right; }
+ul{	list-style: none;}
+.navigation ul { margin:30px 0 0 0px;}
+.navigation ul li{ padding: 0 0 5px; height: auto; overflow: hidden;}
+.navigation ul li a{ text-transform: uppercase; letter-spacing: 4px; font-weight: 400; font-style: normal; font: 12px/14px Tahoma, Arial, sans-serif; color: #fff; text-decoration: none;}
+.navigation ul li.mToggle{display: none; margin-left: 0px;}
+.navigation ul li a.active-link{color:#e34545;}
+.navigation ul li a:hover{ color: #ad5d58;}
+.mainContainer{ margin:0 auto; width: 100%; height: 1000px; background: url(../images/homeImg1.png) rgb(27, 30, 36) top center no-repeat fixed; background-size: cover;}
+.mainContainer .infoBox{ background: rgba(51, 53, 56, 0.6); width: 520px; max-width: 520px; min-width: 500px; height: auto;	-webkit-border-radius: 10px; border-radius: 10px; 
+		text-align: center;margin:100px auto 0; padding: 50px 50px 20px;}
+.mainContainer.fullMap .infoBox,
+.mainContainer.visualize .infoBox{ margin:0 auto; } 
+.mainContainer.innerPage { background: url(../images/homeImg2.png) rgba(27, 30, 36,0.8) top center no-repeat fixed; background-size: cover;}
+.mainContainer.innerPage.visit { background-image: url(../images/homeImg4.png);}
+.mainContainer.innerPage.view { background-image: url(../images/homeImg3.png);}
+.mainContainer.innerPage .content{ width: 980px; max-width: 1000px; margin:0 auto; background:rgba(0,0,0,0.7);height:500px; }
+.mainContainer.innerPage.fullMap .content{ width: 100%; max-width: 100%; height:100%; position:relative;}
+.mainContainer.innerPage.visualize .content{ width: 100%; max-width: 100%;  height:100%; position:relative;}
+.siteTitle{font:115px 'voltaireregular',arial,sans-serif; text-transform: uppercase;}
+.siteSubtitle{font: italic 20px Georgia,serif; color:#e34545;}
+.divider.horz.wht{ width: 150px; height: 4px; background: #fff; margin: 20px auto;}
+#map_canvas{height:100%; width: 100%;}
+.mainContainer p{margin: 0 0 10px; font-size: 16px; line-height: 22px;}	
+.mainContainer.innerPage .infoBox{ width: 950px; max-width: 1000px; -webkit-border-radius: 10px 10px 0px 0px; border-radius: 10px 10px 0px 0px;}
+.mainContainer.innerPage.fullMap .infoBox{ width: 100%; max-width: 100%; -webkit-border-radius: 10px 10px 0px 0px; border-radius: 10px 10px 0px 0px;}
+.mainContainer.innerPage .siteTitle{font:115px 'voltaireregular',arial,sans-serif; text-transform: uppercase;}
+.mainContainer.innerPage.fullMap .siteTitle{font:45px 'voltaireregular',arial,sans-serif; padding:0; margin:0;}
+.mainContainer.innerPage .siteSubtitle{font: italic 20px Georgia,serif; color:#e34545;}
+.mainContainer.innerPage .content{/*background:rgba(0,0,0,0.5);*/ }
+/*.mainContainer.innerPage.fullMap .content{ width:100%; }*/
+.filmNames { background: rgba(51, 51, 51, 0.85); padding: 5px 20px; width: 200px; height: 100%; position: absolute; top: 0px; right: 0; z-index: 4; color: #fff; font: bold 16px  Arial, sans-serif; overflow: hidden;}
+.filmNames span {}
+.filmNames span a{ color:#fff; margin: 3px 5px; opacity: 0.5; text-decoration: none;}
+.filmNames span a:hover{ color:#e34545;}
+p.infoItem{font:14px Arial, Helvetica, sans-serif; padding:2px 0; margin:0; color:#666;}
+.sceneInfo{position:absolute; top:0; left:0;}
+.photos{ width:835px; margin:0 auto;}
+.photos ul{position:relative; z-index:2;}
+.photos li{ float:left; margin:5px; border: 2px #000 solid;}
+.photos .pics{ width:1190px; margin:-15px auto 0;}
+.photos .pics img{ margin-top: 80px;}
+
+/*ul.photos {
+  padding: 0;
+  margin: 0px;
+  list-style: none;
+  width: 100%;
+  height: 100%;
+}
+
+ul.photos:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+ul.photos li {
+  position: relative;
+  float: left;
+  width: 100px;
+  height: 100px;
+  background: url(' http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/pw_maze_white.png');
+  cursor: pointer;
+}
+
+ul.photos li:nth-of-type(3n+1) {
+  clear: both;
+}
+
+ul.photos img {
+  position: absolute;
+  display: block;
+  clip: rect(0, 100px, 100px, 0);
+  -webkit-transition: all 0.2s ease-out, z-index 0s;
+  -moz-transition: all 0.2s ease-out, z-index 0s;
+  transition: all 0.2s ease-out, z-index 0s;
+  opacity: 0.9;
+}
+
+ul.photos li:hover img {
+  clip: rect(0, 800px, 495px, 0);
+  z-index: 2; 
+  opacity: 1;
+}
+
+ul.photos li:nth-of-type(3n+1):hover img {
+  left: 300px;
+}
+
+ul.photos li:nth-of-type(3n+2):hover img {
+  left: 200px;
+}
+
+ul.photos li:nth-of-type(3n):hover img {
+  left: 100px;
+}
+
+ul.photos li:nth-of-type(n+4):nth-of-type(-n+6):hover img {
+  top: -100px;
+}
+
+ul.photos li:nth-of-type(n+7):nth-of-type(-n+9):hover img {
+  top: -200px;
+}
+
+ul.photos li:nth-of-type(n+10):nth-of-type(-n+12):hover img {
+  top: -300px;
+}*/
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px){
+	
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) {
+/* Your Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+	.navigation {position: absolute; width: 100%; background: rgba(27, 30, 36, 0.5);}
+	.navigation ul {margin: 0 auto; width: 320px; height: auto; overflow: hidden;}
+	.navigation ul li {margin-left: 20px; float: left;}
+	.navigation ul li.mToggle{display: block;}
+	.navigation ul li.mToggleItem{display: none;}
+	.mainContainer .infoBox{ width: 170px; max-width: 300px; min-width: 100px; padding-top:20px; margin-top: 60px;}
+	.siteTitle{font-size: 70px;}
+	
+	/* reset ------------------------------- */
+	.menu, .menu li.mToggleItem {
+	margin: 0 auto;
+	padding: 0px;
+	list-style: none;
+	width: 500px;
+	}
+	
+	/* menu items ------------------------- */
+	.menu > li {float:left; text-align:center;}
+	.menu li {position: relative; margin-left: -2px;}
+	.menu li > a {
+	display: block;
+	width: 320px;
+	height: 100%;
+	padding: 10px 2px;
+	}
+	
+	/* sub menus --------------------------- */
+	.menu li.mToggleItem {
+		display: none;
+	}
+	/*.menu li:hover + li.mToggleItem {display: block;}*/
+}
+
+@media only screen and (min-width : 321px) and (max-width: 767px) {
+/* Your Styles */
+	.navigation {position: absolute; width: 100%; background: rgba(27, 30, 36, 0.5);}
+	.navigation ul {margin: 0 auto; width: 520px; height: auto; overflow: hidden;}
+	.navigation ul li {margin-left: 20px; text-align: center;}
+	.navigation ul li.mToggle{display: block;}
+	.navigation ul li.mToggleItem{display: none;}
+	.mainContainer .infoBox{ width: 300px; max-width: 750px; min-width: 300px;}
+	.siteTitle{font-size:70px;}
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media (min-width : 768px) and (max-width : 1024px) {
+	.navigation {position: absolute; width:100%; padding: 20px 0;}
+	.navigation ul {margin: 0 auto; width: 400px; height: auto; overflow: hidden;}
+	.navigation ul li {margin-left: 20px; float: left;}
+	.navigation ul li:first-child {margin-left: 0px;}
+	.mainContainer .infoBox{ width: 750px; max-width: 1024px; min-width: 750px; padding:50px 0 20px;}
+}
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+/* Your Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+/* Your Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) {
+	.navigation { position: fixed; z-index: 5;}
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width : 1824px) {
+/* Your Styles */
+}
+
+/* iPhone 4 ----------- */
+@media only screen and (-webkit-min-device-pixel-ratio : 1.5), only screen and (min-device-pixel-ratio : 1.5) {
+/* Your Styles */
