@@ -61,7 +61,10 @@ background-image: linear-gradient(to top, rgba(255,255,255, 0) 0%, rgba(58,58,58
 .overlayContent .rtSide{width:400px;}
 .overlayContent .bottom{ margin:20px; text-align:right; }
 ul{	list-style: none;}
-.navigation ul { margin:30px 0 0 0px;}
+.navigation ul { margin:30px 0 0 0px; width: 100%;
+  background: transparent;
+  position: absolute;
+  top: 0;}
 .navigation ul li{ padding: 0 0 5px; height: auto; overflow: hidden;}
 .navigation ul li a{ text-transform: uppercase; letter-spacing: 4px; font-weight: 400; font-style: normal; font: 12px/14px Tahoma, Arial, sans-serif; color: #fff; text-decoration: none;}
 .navigation ul li.mToggle{display: none; margin-left: 0px;}
