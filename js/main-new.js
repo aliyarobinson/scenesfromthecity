@@ -2,40 +2,46 @@ var SC = {};
 
 (function($){ // SEF
 	var filmInfo
-	, map;
+	, map
+	, marker;
 
 	SC = {
 
 		filmInfo: [],
-		// map: {},
+		styleDark: [
+            {"featureType": "road.local", "stylers": [{ "visibility": "on" }, { "color": "#8a8280" }]},
+            {"featureType": "water", "stylers": [{ "color": "#405c80" }, { "saturation": -78 },{ "lightness": 4 }]},
+            {"elementType": "labels.text.fill", "stylers": [{ "color": "#808080" }, { "lightness": 69 }, { "saturation": 11 }, { "gamma": 2.29 }]},
+			{"elementType": "labels.text.stroke", "stylers": [ { "visibility": "off" } ]},
+            {"featureType": "poi", "elementType": "labels.text.stroke", "stylers": [{ "visibility": "off" }]},
+            {"featureType": "landscape.man_made", "stylers": [{ "color": "#b37d80" }, { "saturation": -100 }, { "lightness": -64 }]},
+            {"featureType": "road.highway", "stylers": [{ "color": "#a76380" }, { "saturation": -100 }, { "lightness": -47 }]},
+			{"featureType": "poi", "elementType": "labels.icon", "stylers": [ { "visibility": "off" } ]},
+            {"featureType": "road.arterial", "stylers": [{ "saturation": -8 }, { "gamma": 1.13 }, { "color": "#788080" }, { "lightness": -68 }]},
+            {"featureType": "poi", "stylers": [{ "color": "#997f80" }, { "saturation": -49 }, { "lightness": -100 }]},
+            {"elementType": "labels.text.fill", "stylers": [{ "color": "#808080" }, { "saturation": -39 }, { "lightness": 51 }]}
+        ],
 
 		init: function(){
 
 			$( window ).resize(function() {
-
 			});
 
-			SC.showMap();
+			/*******************************************/
+			/*    Load Map                             */
+			/*******************************************/
+
+			// SC.showMap();
 
 			google.maps.event.addDomListener(window, 'load', SC.showMap);
-
-
-			// var films = SC.getFilms();
 			SC.getFilms();
-			// console.log('films: ', films);
-			console.log('filmInfo: ', SC.filmInfo);
-
-
 
 
 			/*******************************************/
-			/*    Item Title                           */
+			/*    Load Films                           */
 			/*******************************************/
-			
-
-			/*******************************************/
-			/*    Product Detail - Back                */
-			/*******************************************/
+			// SC.getFilms();
+			// SC.addMarkers();
 			
 
 		},
@@ -43,15 +49,33 @@ var SC = {};
 		showMap: function(){
 			console.log('showMap');
 			  var mapOptions = {
-			    zoom: 8,
-			    center: new google.maps.LatLng(40.730885, -73.997383)
+			    zoom: 12,
+			    center: new google.maps.LatLng(40.730885, -73.997383),
+			    styles: SC.styleDark
 			  };
 			  map = new google.maps.Map(document.getElementById('map-canvas'),
 			      mapOptions);
 
 		},
 
+		addMarkers: function(filmList) {
+			console.log('addMarkers');
+			for (i = 0; i < filmList.length; i++) { 
+				var markerTitle = filmList[i].title
+				, markerLat = filmList[i].lat
+				, markerLng = filmList[i].lng
+				, markerLatlng = new google.maps.LatLng(markerLat, markerLng);
+
+				new google.maps.Marker({
+			      position: markerLatlng,
+			      map: map,
+			      title: markerTitle
+				});
+			}
+		},
+
 		buildFilmList: function(filmList) {
+			console.log('buildFilmList');
 			for (i = 0; i < filmList.length; i++) { 
 				var filmItemTmpl = $('#filmItemTmpl').html(),
 					item = Mustache.render(filmItemTmpl, filmList[i]);
@@ -97,8 +121,8 @@ var SC = {};
 					  );
 					}
 					SC.buildFilmList(SC.filmInfo);
-
-					console.log('filmInfo: ', SC.filmInfo);
+					SC.addMarkers(SC.filmInfo);
+					// console.log('filmInfo: ', SC.filmInfo);
 
 			  	},
 			  	error : function(){console.log('error in parsing omdb info.');}	  
@@ -119,6 +143,5 @@ var SC = {};
 
 $(function() {
 	SC.init();
-			google.maps.event.addDomListener(window, 'load', SC.showMap);
-
+	// google.maps.event.addDomListener(window, 'load', SC.showMap);
 });
