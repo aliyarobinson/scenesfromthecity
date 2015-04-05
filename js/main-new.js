@@ -1,17 +1,24 @@
 var SC = {};
 
 (function($){ // SEF
-	var filmInfo;
+	var filmInfo
+	, map;
 
 	SC = {
 
 		filmInfo: [],
+		// map: {},
 
 		init: function(){
 
 			$( window ).resize(function() {
 
 			});
+
+			SC.showMap();
+
+			google.maps.event.addDomListener(window, 'load', SC.showMap);
+
 
 			// var films = SC.getFilms();
 			SC.getFilms();
@@ -33,14 +40,21 @@ var SC = {};
 
 		},
 
-		buildFilmList: function(filmList) {
-			console.log('buildFilmList ');
-			for (i = 0; i < filmList.length; i++) { 
-			console.log('buildFilmList for item');
+		showMap: function(){
+			console.log('showMap');
+			  var mapOptions = {
+			    zoom: 8,
+			    center: new google.maps.LatLng(40.730885, -73.997383)
+			  };
+			  map = new google.maps.Map(document.getElementById('map-canvas'),
+			      mapOptions);
 
+		},
+
+		buildFilmList: function(filmList) {
+			for (i = 0; i < filmList.length; i++) { 
 				var filmItemTmpl = $('#filmItemTmpl').html(),
 					item = Mustache.render(filmItemTmpl, filmList[i]);
-				// var item = ('<option/>', {'value': filmList[i].imdbID});
 				$('.filmNames select').append(item);
 			}
 		},
@@ -105,4 +119,6 @@ var SC = {};
 
 $(function() {
 	SC.init();
+			google.maps.event.addDomListener(window, 'load', SC.showMap);
+
 });

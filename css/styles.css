@@ -20,11 +20,11 @@ html, body, p, h1, h2, h3, h4, div { padding: 0; margin: 0;}
 .floatL{ float: left;}
 .floatR{ float: right;}
 .clearfix{ clear:both;}
-#map_canvas, #map_canvasOverlay { height: 100%; position: absolute; z-index: 1; bottom:0; right:0; width: 20%;}
+#map-canvas, #map-canvasOverlay { height: 100%; position: absolute; z-index: 1; bottom:0; right:0; width: 20%;}
 .fl{ float:left;}
 .fr{ float:right;}
-#map_canvasOverlay { z-index: 2;background: rgba(0,0,0,0.5); pointer-events: none;}
-#map_canvasOverlay button{ pointer-events: auto;}
+#map-canvasOverlay { z-index: 2;background: rgba(0,0,0,0.5); pointer-events: none;}
+#map-canvasOverlay button{ pointer-events: auto;}
 .visClose { border: 1px #333 solid; color: #fff; padding: 3px; position: absolute; right: 20px; top: 10px; cursor: pointer;}
 button { position: absolute; top:15px; left: -150px; z-index: 3; background: transparent; border: 1px #666 solid; padding: 2px; color: rgb(145, 137, 137); cursor: pointer;}
 button.mapInfoBtn{position:absolute; margin-top:10px;}
@@ -84,7 +84,7 @@ ul{	list-style: none;}
 .siteTitle{font:115px 'voltaireregular',arial,sans-serif; text-transform: uppercase;}
 .siteSubtitle{font: italic 20px Georgia,serif; color:#e34545;}
 .divider.horz.wht{ width: 150px; height: 4px; background: #fff; margin: 20px auto;}
-#map_canvas{height:100%; width: 100%;}
+#map-canvas{height:100%; width: 100%;}
 .mainContainer p{margin: 0 0 10px; font-size: 16px; line-height: 22px;}	
 .mainContainer.innerPage .infoBox{ width: 950px; max-width: 1000px; -webkit-border-radius: 10px 10px 0px 0px; border-radius: 10px 10px 0px 0px;}
 .mainContainer.innerPage.fullMap .infoBox{ width: 100%; max-width: 100%; -webkit-border-radius: 10px 10px 0px 0px; border-radius: 10px 10px 0px 0px;}
