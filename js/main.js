@@ -94,59 +94,54 @@ $(document).ready(function () {    city.init();    });
 		  directionsDisplay.setMap(map);
 		 // google.maps.event.addDomListener(moreInfoBtn, 'click', showAlert);
 			
-        filmInfo = [];
+        var filmInfo = [];
 		function getFilmInfo(){
 			// Get Films.xml
-			// filmInfo.push('h');
 			$.ajax({
 				type: "GET",
-			  url: "Films.xml",
-			  dataType: "xml",
-			  success: function(xml) {
-				// List film names in DOM
-				// filmInfo.push('i');
-
-				console.log('filmInfo: ', filmInfo);
-				$(xml).find('Film').each(function(){
-				  var titleStr = $(this).find('Cell').eq(0).text();
-				  var title = $.trim(titleStr);
-				  var filmYearStr = $(this).find('Cell').eq(1).text();
-				  var filmYear = $.trim(filmYearStr);
-				  var lngStr = $(this).find('Cell').eq(10).text();
-				  var lng = $.trim(lngStr);
-				  var latStr = $(this).find('Cell').eq(9).text();
-				  var lat = $.trim(latStr);
-				  var filmBoroughStr = $(this).find('Cell').eq(11).text();
-				  var filmBorough = $.trim(filmBoroughStr);
-				  var idStr = $(this).find('Cell').eq(15).text();
-				  var id = $.trim(idStr);		
-				  // $('<span></span>').html('<a href="#" data-lng="'+lng+'" data-lat="'+lat+'" data-title="'+title+'" data-borough="'+filmBorough+'" data-year="'+filmYear+'">' +title+ '</a>').appendTo('.filmNames');			  
-				  // filmInfo.push('j');
-				  
-				  filmInfo.push(
-					  {
-					  	"title": title,
-					  	"filmYear": filmYear,
-					  	"lng": lng,
-					  	"lat": lat,
-					  	"filmBorough": filmBorough,
-					  	"id": id
-					  }
-				  );
-				  $('<option href="#" data-lng="'+lng+'" data-lat="'+lat+'" data-title="'+title+'" data-borough="'+filmBorough+'" data-year="'+filmYear+'">' +title+ '</option>').appendTo('.filmNames select');			  
-
-				});
-				// filmInfo.push('k');
-				
-			  },
-			  error : function(){console.log('error in parsing omdb info.');}	  
-				// filmInfo.push('l');
+			  	url: "Films.xml",
+			  	dataType: "xml",
+			  	success: function(xml) {
+					var filmsData = $(xml).find('Film');
+					for (i = 0; i < filmsData.length; i++) { 
+					  var el = filmsData[i];
+					  var titleStr = $(el).find('Cell').eq(0).text();
+					  var title = $.trim(titleStr);
+					  var filmYearStr = $(el).find('Cell').eq(1).text();
+					  var filmYear = $.trim(filmYearStr);
+					  var lngStr = $(el).find('Cell').eq(10).text();
+					  var lng = $.trim(lngStr);
+					  var latStr = $(el).find('Cell').eq(9).text();
+					  var lat = $.trim(latStr);
+					  var filmBoroughStr = $(el).find('Cell').eq(11).text();
+					  var filmBorough = $.trim(filmBoroughStr);
+					  var imdbURLStr = $(el).find('Cell').eq(15).text();
+					  var imdbStrArry = imdbURLStr.split('/');
+					  var imdbStr = imdbStrArry[imdbStrArry.length - 2];
+					  var id = $.trim(imdbStr);
+					  
+					  filmInfo.push(
+						  {
+						  	"title": title,
+						  	"filmYear": filmYear,
+						  	"lng": lng,
+						  	"lat": lat,
+						  	"filmBorough": filmBorough,
+						  	"imdbURL": imdbURLStr,
+						  	"imdbId": id
+						  }
+					  );
+					}
+					console.log('filmInfo:', filmInfo);
+			  	},
+			  	error : function(){console.log('error in parsing omdb info.');}	  
+				// function() {};ilmInfo.push('l');
 				
 			});// End Get Films.xml
 		   
 		}
 		getFilmInfo();
-		console.log('filmInfo: ', filmInfo);
+		// console.log('filmInfo: ', filmInfo);
 		
 		$('.filmNames span a').live("click", parseLink); // end 'click' .filmNames span a
 		
