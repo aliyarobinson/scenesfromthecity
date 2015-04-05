@@ -23,25 +23,24 @@ var SC = {};
         ],
 
 		init: function(){
-
 			$( window ).resize(function() {
 			});
 
+			var callbacks = $.Callbacks();
 			/*******************************************/
 			/*    Load Map                             */
 			/*******************************************/
-
-			// SC.showMap();
-
-			google.maps.event.addDomListener(window, 'load', SC.showMap);
-			SC.getFilms();
-
+			callbacks.add( SC.showMap );
 
 			/*******************************************/
 			/*    Load Films                           */
 			/*******************************************/
-			// SC.getFilms();
-			// SC.addMarkers();
+			callbacks.add( SC.getFilms );
+
+			/*******************************************/
+			/*    Call Functions in order              */
+			/*******************************************/
+			callbacks.fire();
 			
 
 		},
@@ -71,7 +70,11 @@ var SC = {};
 			      map: map,
 			      title: markerTitle
 				});
+			console.log('addMarkers for end');
+
 			}
+			console.log('addMarkers end');
+
 		},
 
 		buildFilmList: function(filmList) {
@@ -122,7 +125,6 @@ var SC = {};
 					}
 					SC.buildFilmList(SC.filmInfo);
 					SC.addMarkers(SC.filmInfo);
-					// console.log('filmInfo: ', SC.filmInfo);
 
 			  	},
 			  	error : function(){console.log('error in parsing omdb info.');}	  
@@ -143,5 +145,4 @@ var SC = {};
 
 $(function() {
 	SC.init();
-	// google.maps.event.addDomListener(window, 'load', SC.showMap);
 });
