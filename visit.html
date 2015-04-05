@@ -3,7 +3,7 @@
   <head>
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
   </head>
-  <body onload="initialize()">
+  <body>
     <div class="navigation left floatL">
       <ul>
         <li class="mToggle"><a href="index.html">Menu</a></li>
@@ -60,7 +60,12 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCPn5VbT4leByGtMSolqEZNKHlvYrqxs84&sensor=false"></script>
+    <script src="js/mustache.min.js" type="text/javascript"></script>
     <script src="js/infobox.js" type="text/javascript"></script>
-    <script type="text/javascript" src="js/main.js" async></script>
+    <!-- <script type="text/javascript" src="js/main.js" async></script> -->
+    <script type="text/javascript" src="js/main-new.js" async></script>
+    <script type="text/mustache-tmpl" id="filmItemTmpl">
+      <option value="{{imdbId}}">{{title}}</option>
+    </script>
   </body>
 </html>

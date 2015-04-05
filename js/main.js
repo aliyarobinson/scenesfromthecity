@@ -65,36 +65,37 @@ $(document).ready(function () {    city.init();    });
 
 /* **********************  Google Maps Code ***************************** */
 
-	      var directionDisplay;
-		  var directionsService = new google.maps.DirectionsService();
-		  var map;
-		  var currentFilmArr = [];
-          var markersArray = [];
-          var geocoder;
-          var infowindow = new google.maps.InfoWindow();
-          var marker;  
+	      var directionDisplay
+		  , directionsService = new google.maps.DirectionsService()
+		  , map
+		  , currentFilmArr = []
+          , markersArray = []
+          , geocoder
+          , infowindow = new google.maps.InfoWindow()
+          , marker;  
 
       function initialize() {
           geocoder = new google.maps.Geocoder();
 		  directionsDisplay = new google.maps.DirectionsRenderer();
-          var latlng = new google.maps.LatLng(40.730885, -73.997383);
-		  
-          //var myloc = new google.maps.LatLng(41.850033, -87.6500523);
-		  var mylocAddr = 'brooklyn, ny';
-          // var latlng = new google.maps.LatLng(-34.397, 150.644);
-          var mapOptions = {
+          var latlng = new google.maps.LatLng(40.730885, -73.997383)
+		  , mylocAddr = 'brooklyn, ny'
+          , mapOptions = {
             zoom: 15,
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
-          };
-          var soonContent = "";
+          }
+          , soonContent = "";
 
           map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-		  //moreInfoBtn = $('.imbdInfo');
 		  directionsDisplay.setMap(map);
-		 // google.maps.event.addDomListener(moreInfoBtn, 'click', showAlert);
 			
-        var filmInfo = [];
+        var filmInfo = []
+        , filmXML;
+
+        $.get("Films.xml", function( data ) {
+		  // $( ".result" ).html( data );
+		  console.log( "filmXML: ", filmXML );
+		});
 		function getFilmInfo(){
 			// Get Films.xml
 			$.ajax({
@@ -103,22 +104,23 @@ $(document).ready(function () {    city.init();    });
 			  	dataType: "xml",
 			  	success: function(xml) {
 					var filmsData = $(xml).find('Film');
+
 					for (i = 0; i < filmsData.length; i++) { 
-					  var el = filmsData[i];
-					  var titleStr = $(el).find('Cell').eq(0).text();
-					  var title = $.trim(titleStr);
-					  var filmYearStr = $(el).find('Cell').eq(1).text();
-					  var filmYear = $.trim(filmYearStr);
-					  var lngStr = $(el).find('Cell').eq(10).text();
-					  var lng = $.trim(lngStr);
-					  var latStr = $(el).find('Cell').eq(9).text();
-					  var lat = $.trim(latStr);
-					  var filmBoroughStr = $(el).find('Cell').eq(11).text();
-					  var filmBorough = $.trim(filmBoroughStr);
-					  var imdbURLStr = $(el).find('Cell').eq(15).text();
-					  var imdbStrArry = imdbURLStr.split('/');
-					  var imdbStr = imdbStrArry[imdbStrArry.length - 2];
-					  var id = $.trim(imdbStr);
+					  var el = filmsData[i]
+					  , titleStr = $(el).find('Cell').eq(0).text()
+					  , title = $.trim(titleStr)
+					  , filmYearStr = $(el).find('Cell').eq(1).text()
+					  , filmYear = $.trim(filmYearStr)
+					  , lngStr = $(el).find('Cell').eq(10).text()
+					  , lng = $.trim(lngStr)
+					  , latStr = $(el).find('Cell').eq(9).text()
+					  , lat = $.trim(latStr)
+					  , filmBoroughStr = $(el).find('Cell').eq(11).text()
+					  , filmBorough = $.trim(filmBoroughStr)
+					  , imdbURLStr = $(el).find('Cell').eq(15).text()
+					  , imdbStrArry = imdbURLStr.split('/')
+					  , imdbStr = imdbStrArry[imdbStrArry.length - 2]
+					  , id = $.trim(imdbStr);
 					  
 					  filmInfo.push(
 						  {
@@ -132,16 +134,16 @@ $(document).ready(function () {    city.init();    });
 						  }
 					  );
 					}
-					console.log('filmInfo:', filmInfo);
+
+					return filmInfo;
 			  	},
 			  	error : function(){console.log('error in parsing omdb info.');}	  
-				// function() {};ilmInfo.push('l');
 				
 			});// End Get Films.xml
 		   
 		}
 		getFilmInfo();
-		// console.log('filmInfo: ', filmInfo);
+		console.log('filmInfo: ', filmInfo);
 		
 		$('.filmNames span a').live("click", parseLink); // end 'click' .filmNames span a
 		
