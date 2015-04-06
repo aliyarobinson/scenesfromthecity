@@ -46,7 +46,6 @@ var SC = {};
 		},
 
 		showMap: function(){
-			console.log('showMap');
 			  var mapOptions = {
 			    zoom: 12,
 			    center: new google.maps.LatLng(40.730885, -73.997383),
@@ -58,7 +57,6 @@ var SC = {};
 		},
 
 		addMarkers: function(filmList) {
-			console.log('addMarkers');
 			for (i = 0; i < filmList.length; i++) { 
 				var markerTitle = filmList[i].title
 				, markerLat = filmList[i].lat
@@ -70,15 +68,12 @@ var SC = {};
 			      map: map,
 			      title: markerTitle
 				});
-			console.log('addMarkers for end');
 
 			}
-			console.log('addMarkers end');
 
 		},
 
 		buildFilmList: function(filmList) {
-			console.log('buildFilmList');
 			for (i = 0; i < filmList.length; i++) { 
 				var filmItemTmpl = $('#filmItemTmpl').html(),
 					item = Mustache.render(filmItemTmpl, filmList[i]);
@@ -131,6 +126,18 @@ var SC = {};
 				
 			});// End Get Films.xml
 
+		},
+
+		bindEvents: function(){
+			$( "filmNames select" )
+			  .change(function () {
+			    var str = "";
+			    $( "select option:selected" ).each(function() {
+			      str += $( this ).text() + " ";
+			    });
+			    console.log( str );
+			  })
+			  .change();
 		},
 		
 		scrollTo: function(elem){
