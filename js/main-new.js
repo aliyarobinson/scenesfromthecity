@@ -8,6 +8,7 @@ var SC = {};
 	SC = {
 
 		filmInfo: [],
+		markerArray: [],
 		styleDark: [
             {"featureType": "road.local", "stylers": [{ "visibility": "on" }, { "color": "#8a8280" }]},
             {"featureType": "water", "stylers": [{ "color": "#405c80" }, { "saturation": -78 },{ "lightness": 4 }]},
@@ -41,6 +42,7 @@ var SC = {};
 			/*    Call Functions in order              */
 			/*******************************************/
 			callbacks.fire();
+			SC.bindEvents();
 			
 
 		},
@@ -56,6 +58,19 @@ var SC = {};
 
 		},
 
+		addMarker: function(location) {
+			var marker = new google.maps.Marker({
+			    position: location,
+			    map: map
+			});
+			SC.markerArray.push(marker);
+			marker.setMap(map);
+		},
+
+		setMarker: function(location) {
+			SC.markerArray[i].setMap(map);
+		},
+
 		addMarkers: function(filmList) {
 			for (i = 0; i < filmList.length; i++) { 
 				var markerTitle = filmList[i].title
@@ -63,12 +78,7 @@ var SC = {};
 				, markerLng = filmList[i].lng
 				, markerLatlng = new google.maps.LatLng(markerLat, markerLng);
 
-				new google.maps.Marker({
-			      position: markerLatlng,
-			      map: map,
-			      title: markerTitle
-				});
-
+				SC.addMarker(markerLatlng);
 			}
 
 		},
@@ -120,6 +130,7 @@ var SC = {};
 					}
 					SC.buildFilmList(SC.filmInfo);
 					SC.addMarkers(SC.filmInfo);
+					console.log('markerArray: ', SC.markerArray);
 
 			  	},
 			  	error : function(){console.log('error in parsing omdb info.');}	  
@@ -129,17 +140,49 @@ var SC = {};
 		},
 
 		bindEvents: function(){
-			$( "filmNames select" )
+			$( ".filmNames select" )
 			  .change(function () {
-			    var str = "";
+
+			    var str = "",
+			    	idVal = "",
+			    	markerIdx,
+			    	filmLoc = "";
+
 			    $( "select option:selected" ).each(function() {
 			      str += $( this ).text() + " ";
+			      idVal = $(this).val();
+			      markerIdx = $(this).index();
+
+			      var mLat = SC.markerArray[markerIdx].position.D
+			      	, mLng = SC.markerArray[markerIdx].position.k;
+
+			      filmLoc = new google.maps.LatLng(mLat, mLng);
+			      console.log('filmLoc: ', filmLoc);
+
+			      SC.clearMarkers();
+			      SC.addMarker(filmLoc);
 			    });
 			    console.log( str );
+			    console.log( idVal );
+			    console.log( markerIdx );
 			  })
 			  .change();
+			  
 		},
-		
+
+		clearMarkers: function() {
+			console.log('clearMarkers');
+		  SC.setAllMap(null);
+		},
+
+		setAllMap: function(map) {
+			console.log('setAllMap: ', map);
+
+		  for (var i = 0; i < SC.markerArray.length; i++) {
+		    SC.markerArray[i].setMap(map);
+		  }
+		},
+
 		scrollTo: function(elem){
 			$('html,body').animate({                                                             
 	        	scrollTop: $(elem).offset().top
