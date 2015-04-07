@@ -67,8 +67,9 @@ var SC = {};
 			marker.setMap(map);
 		},
 
-		setMarker: function(location) {
-			SC.markerArray[i].setMap(map);
+		setMarker: function(location, idx) {
+			SC.markerArray[idx].setMap(map);
+			// map.setCenter(location);
 		},
 
 		addMarkers: function(filmList) {
@@ -161,6 +162,7 @@ var SC = {};
 
 			      SC.clearMarkers();
 			      SC.addMarker(filmLoc);
+			      SC.setMarker(filmLoc,markerIdx);
 			    });
 			    console.log( str );
 			    console.log( idVal );
