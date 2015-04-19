@@ -4,7 +4,8 @@ var SC = {};
 	var filmInfo
 	, map
 	, marker
-	, infowindow = new google.maps.InfoWindow();
+	, infowindow = new google.maps.InfoWindow()
+	, geocoder = new google.maps.Geocoder();;
 
 	SC = {
 
@@ -47,7 +48,7 @@ var SC = {};
 		infowindow: new google.maps.InfoWindow({
 		      // content: SC.contentString
 		      content: 'Content String'
-		  }),
+		}),
 		
 		ibContent: 'IB Content String',
 
@@ -92,8 +93,6 @@ var SC = {};
 			/*******************************************/
 			callbacks.fire();
 			// SC.bindEvents();
-			
-
 		},
 
 		showMap: function(){
@@ -104,7 +103,6 @@ var SC = {};
 			  };
 			  map = new google.maps.Map(document.getElementById('map-canvas'),
 			      mapOptions);
-
 		},
 
 		addMarker: function(thisFilm, location, lat, lng) {
@@ -182,7 +180,6 @@ var SC = {};
 
 				SC.addMarker(filmList[i], markerLatlng, markerLat, markerLng);
 			}
-
 		},
 
 		buildFilmList: function(filmList) {
@@ -239,8 +236,29 @@ var SC = {};
 			  	error : function(){console.log('error in parsing omdb info.');}	  
 				
 			});// End Get Films.xml
-
 		},
+
+		codeLatLng: function(lat, lng, content) {
+			console.log('in codeLatLng');  
+            var latlng = new google.maps.LatLng(lat, lng);
+            geocoder.geocode({'latLng': latlng}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                  map.setZoom(17);
+                  marker = new google.maps.Marker({
+                      position: latlng,
+                      map: map
+                  });
+				  map.setCenter(latlng);
+				  //infowindow.setContent('<p class="infoItem">Title: '+thisTitle+'</p><p class="infoItem">Borough: '+thisBorough+'</p><p class="infoItem">Year: '+thisYear+'</p><button class="getDir mapInfoBtn" data-lat="'+thisLat+'" data-lng="'+thisLng+'">Get Directions</button><button class="imdbInfo mapInfoBtn">More Info</button><div class="overlayContent userLoc"><label for="start">Start</label><input type="text" name="start" id="start" value="brooklyn, ny"><button class="userLocation">Go</button></div>');
+				  infowindow.setContent('<p class="infoItem">Title: '+thisTitle+'</p><button class="getDir mapInfoBtn" data-lat="'+thisLat+'" data-lng="'+thisLng+'">Get Directions</button><button class="imdbInfo mapInfoBtn">More Info</button><div class="overlayContent userLoc"><label for="start">Start</label><input type="text" name="start" id="start" value="brooklyn, ny"><button class="userLocation">Go</button></div>');
+                  infowindow.open(map, marker);
+                }
+              } else {
+                alert("Geocoder failed due to: " + status);
+              }
+            });
+        }, 
 
 		bindEvents: function(filmInfo){
 			$( ".filmNames select" )
@@ -261,11 +279,15 @@ var SC = {};
 
 			      filmLoc = new google.maps.LatLng(mLat, mLng);
 			      console.log('filmLoc: ', filmLoc);
+			      SC.codeLatLng(mLat,mLng,'New Content');
 
 			      SC.clearMarkers();
 			      // SC.addMarker(filmLoc);
-			      SC.addNewMarker(filmLoc, mLat, mLng);
-			      SC.setMarker(filmLoc,markerIdx);
+			      
+			      // SC.addNewMarker(filmLoc, mLat, mLng);
+			      // SC.setMarker(filmLoc,markerIdx);
+			      
+			      // SC.codeLatLng(mLat,mLng,'New Content');
 			    });
 			    console.log( str );
 			    console.log( idVal );
@@ -276,8 +298,6 @@ var SC = {};
 			// $().on('click', function(){
 
 			// });  
-
-
 		},
 
 		showInfoBox: function(marker) {
@@ -296,6 +316,124 @@ var SC = {};
 		  for (var i = 0; i < SC.markerArray.length; i++) {
 		    SC.markerArray[i].setMap(map);
 		  }
+		},
+
+		calcRoute: function() {			    
+		    //get and set user location - HTML5 geolocation
+			$this = $(this);
+			if(navigator.geolocation) {
+			  navigator.geolocation.getCurrentPosition(function(position) {
+				var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);		
+													
+				//get and set movie location
+				var lat = $this.attr('data-lat');
+				var lng = $this.attr('data-lng');
+				var movieLoc = new google.maps.LatLng(lat, lng);					
+				
+				var start = pos;
+				var end = movieLoc;
+				var request = {
+					origin:start,
+					destination:end,
+					travelMode: google.maps.DirectionsTravelMode.DRIVING
+				};
+				map.setCenter(pos);
+				directionsService.route(request, function(response, status) {
+				  if (status == google.maps.DirectionsStatus.OK) {
+					  console.log('directions okay');
+					directionsDisplay.setDirections(response);
+				  }					
+				});
+			  }, function() {
+				SC.handleNoGeolocation(true);
+			  });
+			} else {
+			  // Browser doesn't support Geolocation
+			  SC.handleNoGeolocation(false);
+			}
+		},
+
+		handleNoGeolocation: function(errorFlag) {
+			if (errorFlag) {
+			  var content = 'Error: The Geolocation service failed.';
+			} else {
+			  var content = 'Error: Your browser doesn\'t support geolocation.';
+			}
+
+			var options = {
+			  map: map,
+			  position: new google.maps.LatLng(60, 105),
+			  content: content
+			};
+
+			var infowindow = new google.maps.InfoWindow(options);
+			map.setCenter(options.position);
+	  	},
+
+	  // 	showDir: function(start, end) {
+			// var request = {
+			// 	origin:start,
+			// 	destination:end,
+			// 	travelMode: google.maps.DirectionsTravelMode.DRIVING
+			// };
+			// directionsService.route(request, function(response, status) {
+			//   if (status == google.maps.DirectionsStatus.OK) {
+			// 	  console.log('directions okay');
+			// 	directionsDisplay.setDirections(response);
+			//   }
+			// });
+	  // 	},
+
+	 //  	getUserLoc: function() {
+		// 	userLoc = null;
+		// 	$('.overlayContent.userLoc').fadeIn(600);	
+		// 	$('.userLocation').live("click", function(){
+		// 		userLoc = $(this).siblings('input').attr('value');
+		// 		console.log('go clicked');
+		// 		console.log('location: '+ userLoc);
+		// 	});
+
+		// 	return userLoc;
+		// },	
+
+		parseLink: function(){
+		  	thisLat = parseFloat($.trim($(this).attr('data-lat')));
+          	thisLng = parseFloat($.trim($(this).attr('data-lng')));
+          	thisYear = parseInt($(this).attr('data-year'));
+          	thisTitle = $(this).attr('data-title');
+          	thisBorough = $(this).attr('data-borough');
+		  
+		  	// Get imdb
+	        $.ajax({
+	            type: "GET",
+			  url: "http://www.omdbapi.com/?r=xml",
+			  data:{'t':thisTitle},
+	          dataType: "xml",
+	          success: function(xmlIMDB, thisTitle) {
+	            console.log('success');
+
+	            // Get IMDB info
+	            $(xmlIMDB).find('movie').each(function(){
+	              var imdb_title = $(this).attr('title');
+	              var imdb_filmYear = $(this).attr('year');
+				  var imdb_director = $(this).attr('director');
+	              var imdb_plot = $(this).attr('plot');
+	              var imdb_rating = $(this).attr('imdbRating');
+				  var imdb_votes = $(this).attr('imdbVotes');
+				  //var imdb_img = $(this).attr('poster');
+				  var imdb_imgURI = $(this).attr('poster');
+				  var imdb_img = unescape(encodeURIComponent(imdb_imgURI));
+				  $('.overlayContent .title').html(imdb_title);
+				  $('.overlayContent .dir .value').html(imdb_director);
+				  $('.overlayContent .rating .value').html(imdb_rating);
+				  $('.overlayContent .votes .value').html(imdb_votes);
+				  $('.overlayContent .plot .value').html(imdb_plot);
+				  $('.overlayContent .ltSide .imdbImg').attr('src', imdb_img);
+	            });
+	          }
+	        }); // End Get imdb
+
+		  	codeLatLng();
 		},
 
 		scrollTo: function(elem){
