@@ -113,12 +113,16 @@ var SC = {};
 				    position: location
 				    , map: map
 				});
-			var boxText = document.createElement("div");
-		        boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
-		        boxText.innerHTML = "City Hall, Sechelt<br>British Columbia<br>Canada";
+			// var boxText = document.createElement("div");
+		 //        boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
+		 //        boxText.innerHTML = "City Hall, Sechelt<br>British Columbia<br>Canada";
 				
+			var filmItemTmpl = $('#infoBoxTmpl').html(),
+					item = Mustache.render(filmItemTmpl, thisFilm);
+				// $('.filmNames select').append(item);
+
 			var myOptions = {
-				 content: boxText
+				 content: item
 				,disableAutoPan: false
 				,maxWidth: 0
 				,pixelOffset: new google.maps.Size(-140, 0)
