@@ -23,54 +23,6 @@ var SC = {};
             {"featureType": "poi", "stylers": [{ "color": "#997f80" }, { "saturation": -49 }, { "lightness": -100 }]},
             {"elementType": "labels.text.fill", "stylers": [{ "color": "#808080" }, { "saturation": -39 }, { "lightness": 51 }]}
         ],
-        contentString: '<div id="content">'+
-	      '<div id="siteNotice">'+
-	      '</div>'+
-	      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-	      '<div id="bodyContent">'+
-	      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-	      'sandstone rock formation in the southern part of the '+
-	      'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-	      'south west of the nearest large town, Alice Springs; 450&#160;km '+
-	      '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-	      'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-	      'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-	      'Aboriginal people of the area. It has many springs, waterholes, '+
-	      'rock caves and ancient paintings. Uluru is listed as a World '+
-	      'Heritage Site.</p>'+
-	      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-	      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-	      '(last visited June 22, 2009).</p>'+
-	      '</div>'+
-	      '</div>',
-
-		infowindow: new google.maps.InfoWindow({
-		      // content: SC.contentString
-		      content: 'Content String'
-		  }),
-		
-		ibContent: 'IB Content String',
-
-		ibOpts: {
-			content: SC.ibContent
-			,disableAutoPan: false
-			,maxWidth: 0
-			,pixelOffset: new google.maps.Size(-140, 0)
-			,zIndex: null
-			,boxStyle: { 
-			  background: "url('tipbox.gif') no-repeat"
-			  ,opacity: 0.75
-			  ,width: "280px"
-			 }
-			,closeBoxMargin: "10px 2px 2px 2px"
-			,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
-			,infoBoxClearance: new google.maps.Size(1, 1)
-			,isHidden: false
-			,pane: "floatPane"
-			,enableEventPropagation: false
-		},
-
-		ib: new InfoBox(SC.ibOpts),
 
 		init: function(){
 			$( window ).resize(function() {
@@ -113,13 +65,9 @@ var SC = {};
 				    position: location
 				    , map: map
 				});
-			// var boxText = document.createElement("div");
-		 //        boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
-		 //        boxText.innerHTML = "City Hall, Sechelt<br>British Columbia<br>Canada";
-				
+			
 			var filmItemTmpl = $('#infoBoxTmpl').html(),
 					item = Mustache.render(filmItemTmpl, thisFilm);
-				// $('.filmNames select').append(item);
 
 			var myOptions = {
 				 content: item
@@ -147,8 +95,7 @@ var SC = {};
 
 			google.maps.event.addListener(marker, 'click', function() {
 			    // SC.infowindow.open(map,marker);
-			ib.open(map, marker);
-			    
+				ib.open(map, marker);
 			});
 
 			SC.markerArray.push(marker);
@@ -237,7 +184,7 @@ var SC = {};
 					SC.bindEvents(SC.filmInfo);
 					SC.buildFilmList(SC.filmInfo);
 					SC.addMarkers(SC.filmInfo);
-					console.log('markerArray: ', SC.markerArray);
+					// console.log('markerArray: ', SC.markerArray);
 
 			  	},
 			  	error : function(){console.log('error in parsing omdb info.');}	  
