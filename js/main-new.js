@@ -166,6 +166,9 @@ var SC = {};
 		addMarkers: function(filmList) {
 			for (i = 0; i < filmList.length; i++) { 
 				var markerTitle = filmList[i].title
+				, markerBorough = filmList[i].filmBorough
+				, markerYear = filmList[i].filmYear
+				, markerID = filmList[i].imdbId
 				, markerLat = filmList[i].lat
 				, markerLng = filmList[i].lng
 				, markerLatlng = new google.maps.LatLng(markerLat, markerLng);
@@ -298,14 +301,15 @@ var SC = {};
 
 		},
 
-		showInfoBox: function(marker) {
-			infowindow.setContent(SC.contentString);
-            infowindow.open(map, marker);
-		},
+		// showInfoBox: function(marker) {
+		// 	infowindow.setContent(SC.contentString);
+  //           infowindow.open(map, marker);
+		// },
 
 		clearMarkers: function() {
 			console.log('clearMarkers');
 		  SC.setAllMap(null);
+		  InfoBox.prototype.close();
 		},
 
 		setAllMap: function(map) {
