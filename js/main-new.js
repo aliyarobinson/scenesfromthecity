@@ -10,6 +10,7 @@ var SC = {};
 	SC = {
 
 		filmInfo: [],
+		rtInfo: [],
 		markerArray: [],
 		styleDark: [
             {"featureType": "road.local", "stylers": [{ "visibility": "on" }, { "color": "#8a8280" }]},
@@ -24,6 +25,8 @@ var SC = {};
             {"featureType": "poi", "stylers": [{ "color": "#997f80" }, { "saturation": -49 }, { "lightness": -100 }]},
             {"elementType": "labels.text.fill", "stylers": [{ "color": "#808080" }, { "saturation": -39 }, { "lightness": 51 }]}
         ],
+
+        /* HEAD Started here */
         contentString: '<div id="content">'+
 	      '<div id="siteNotice">'+
 	      '</div>'+
@@ -72,6 +75,7 @@ var SC = {};
 		},
 
 		ib: new InfoBox(SC.ibOpts),
+/* Head ended here*/
 
 		init: function(){
 			$( window ).resize(function() {
@@ -107,16 +111,44 @@ var SC = {};
 
 		addMarker: function(thisFilm, location, lat, lng) {
 			var loc = location,
+				id = thisFilm.imdbId,
 				marker = new google.maps.Marker({
 				    position: location
 				    , map: map
 				});
-			var boxText = document.createElement("div");
-		        boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
-		        boxText.innerHTML = "City Hall, Sechelt<br>British Columbia<br>Canada";
-				
+
+			$.ajax({
+				type: "GET",
+			  	url: "http://api.rottentomatoes.com/api/public/v1.0/movie_alias.json?apikey=xm56ayynffqhjxmyv489hprj&type=imdb&id="+id,
+			  	dataType: "jsonp",
+			  	// async: false,
+			  	success: function(data) {
+			  		console.log('addMarker - data: ', data);
+					for (i = 0; i < data.length; i++) { 
+					  var el = data[i]
+					  , plotStr = $(el).find('Cell').eq(0).text()
+					  , plot = $.trim(titleStr)
+					  , critiqueStr = $(el).find('Cell').eq(1).text()
+					  , critique = $.trim(filmYearStr);
+
+					  
+					  // SC.rtInfo.push(
+						 //  {
+						 //  	"plot": plot,
+						 //  	"critique": critique
+						 //  }
+					  // );
+					}
+				},
+			  	error : function(){console.log('error in parsing rt info.');}
+			});// End Get rt 
+			
+			var filmItemTmpl = $('#infoBoxTmpl').html(),
+					item = Mustache.render(filmItemTmpl, thisFilm);
+
+
 			var myOptions = {
-				 content: boxText
+				 content: item
 				,disableAutoPan: false
 				,maxWidth: 0
 				,pixelOffset: new google.maps.Size(-140, 0)
@@ -141,8 +173,13 @@ var SC = {};
 
 			google.maps.event.addListener(marker, 'click', function() {
 			    // SC.infowindow.open(map,marker);
-			ib.open(map, marker);
-			    
+
+			    // for(i=0; i<= SC.markerArray.length; i++){
+			    // 	console.log('markerArray[i]: ', SC.markerArray[i]);
+			    // 	// SC.markerArray[i].setVisible(false);
+			    // }
+
+				ib.open(map, marker);
 			});
 
 			SC.markerArray.push(marker);
@@ -166,6 +203,10 @@ var SC = {};
 			// marker.setMap(map);
 		},
 
+		hideInfoBox: function(ibObj) {
+
+		},
+
 		setMarker: function(location, idx) {
 			SC.markerArray[idx].setMap(map);
 			// map.setCenter(location);
@@ -174,6 +215,9 @@ var SC = {};
 		addMarkers: function(filmList) {
 			for (i = 0; i < filmList.length; i++) { 
 				var markerTitle = filmList[i].title
+				, markerBorough = filmList[i].filmBorough
+				, markerYear = filmList[i].filmYear
+				, markerID = filmList[i].imdbId
 				, markerLat = filmList[i].lat
 				, markerLng = filmList[i].lng
 				, markerLatlng = new google.maps.LatLng(markerLat, markerLng);
@@ -188,6 +232,34 @@ var SC = {};
 					item = Mustache.render(filmItemTmpl, filmList[i]);
 				$('.filmNames select').append(item);
 			}
+		},
+
+		getRTFilms: function(filmID) {
+			var filmIdStr = filmID;
+			$.ajax({
+				type: "GET",
+			  	url: "http://api.rottentomatoes.com/api/public/v1.0/movie_alias.json?apikey=xm56ayynffqhjxmyv489hprj&type=imdb&id="+filmIdStr,
+			  	dataType: "jsonp",
+			  	success: function(data) {
+			  		console.log('getRTFilms - data: ', data);
+					for (i = 0; i < data.length; i++) { 
+					  var el = data[i]
+					  , plotStr = $(el).find('Cell').eq(0).text()
+					  , plot = $.trim(titleStr)
+					  , critiqueStr = $(el).find('Cell').eq(1).text()
+					  , critique = $.trim(filmYearStr);
+
+					  
+					  SC.rtInfo.push(
+						  {
+						  	"plot": plot,
+						  	"critique": critique
+						  }
+					  );
+					}
+				},
+			  	error : function(){console.log('error in parsing rt info.');}
+			});// End Get rt 
 		},
 
 		getFilms: function() {
@@ -213,8 +285,8 @@ var SC = {};
 					  , imdbURLStr = $(el).find('Cell').eq(15).text()
 					  , imdbStrArry = imdbURLStr.split('/')
 					  , imdbStr = imdbStrArry[imdbStrArry.length - 2]
-					  , id = $.trim(imdbStr);
-					  
+					  , id = $.trim(imdbStr).replace('tt','');
+
 					  SC.filmInfo.push(
 						  {
 						  	"title": title,
@@ -230,10 +302,10 @@ var SC = {};
 					SC.bindEvents(SC.filmInfo);
 					SC.buildFilmList(SC.filmInfo);
 					SC.addMarkers(SC.filmInfo);
-					console.log('markerArray: ', SC.markerArray);
+					// console.log('markerArray: ', SC.markerArray);
 
 			  	},
-			  	error : function(){console.log('error in parsing omdb info.');}	  
+			  	error : function(){console.log('error in parsing film xml info.');}	  
 				
 			});// End Get Films.xml
 		},
@@ -300,14 +372,15 @@ var SC = {};
 			// });  
 		},
 
-		showInfoBox: function(marker) {
-			infowindow.setContent(SC.contentString);
-            infowindow.open(map, marker);
-		},
+		// showInfoBox: function(marker) {
+		// 	infowindow.setContent(SC.contentString);
+  //           infowindow.open(map, marker);
+		// },
 
 		clearMarkers: function() {
 			console.log('clearMarkers');
 		  SC.setAllMap(null);
+		  InfoBox.prototype.close();
 		},
 
 		setAllMap: function(map) {
